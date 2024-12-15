@@ -1,9 +1,9 @@
 package dev.shreyash.androidmoviestask.data
 
+import dev.shreyash.androidmoviestask.data.models.CastResponse
 import dev.shreyash.androidmoviestask.data.models.MovieDetailsResponse
 import dev.shreyash.androidmoviestask.data.models.MoviesResponse
 import dev.shreyash.androidmoviestask.data.models.TrailersResponse
-import dev.shreyash.androidmoviestask.domain.CastResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

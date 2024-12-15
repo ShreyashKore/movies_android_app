@@ -2,6 +2,7 @@ package dev.shreyash.androidmoviestask.domain
 
 import dev.shreyash.androidmoviestask.data.TmdbApi
 import dev.shreyash.androidmoviestask.data.models.CastMember
+import dev.shreyash.androidmoviestask.data.models.CastResponse
 import dev.shreyash.androidmoviestask.data.models.MovieDetailsResponse
 import dev.shreyash.androidmoviestask.data.models.MoviesResponse
 import dev.shreyash.androidmoviestask.data.models.TrailersResponse
@@ -58,8 +59,3 @@ class MoviesRepository(private val api: TmdbApi) {
         return api.getMovieTrailers(movieId)
     }
 }
-
-@Serializable
-data class CastResponse(
-    val cast: List<CastMember>
-)

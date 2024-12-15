@@ -1,8 +1,10 @@
 package dev.shreyash.androidmoviestask.data.models
 
+import androidx.annotation.Keep
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Keep
 @Serializable
 data class MovieDetailsResponse(
     val id: Int,
@@ -20,6 +22,7 @@ data class MovieDetailsResponse(
     val revenue: Long?
 )
 
+@Keep
 @Serializable
 data class Genre(
     val id: Int,

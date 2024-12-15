@@ -5,7 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Keep
 @Serializable
-data class TrailersResponse(
-    val id: Int,
-    val results: List<Trailer>
+data class CastResponse(
+    val cast: List<CastMember>
 )
