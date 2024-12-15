@@ -1,12 +1,24 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    kotlin("plugin.serialization") version "1.9.10"
+}
+
+val localProperties = Properties().also { properties ->
+    val file = rootProject.file("local.properties")
+    if (file.exists()) {
+        file.inputStream().use {
+            properties.load(it)
+        }
+    }
 }
 
 android {
     namespace = "dev.shreyash.androidmoviestask"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "dev.shreyash.androidmoviestask"
@@ -16,6 +28,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_KEY", "\"${localProperties["API_KEY"]}\"")
+        buildConfigField("String", "BEARER_TOKEN", "\"${localProperties["BEARER_TOKEN"]}\"")
     }
 
     buildTypes {
@@ -36,6 +51,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -56,4 +72,8 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-kotlinx-serialization:2.11.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 }
