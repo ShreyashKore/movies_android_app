@@ -12,33 +12,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import dev.shreyash.androidmoviestask.data.AuthInterceptor
+import dagger.hilt.android.AndroidEntryPoint
 import dev.shreyash.androidmoviestask.data.TmdbApi
 import dev.shreyash.androidmoviestask.ui.theme.AndroidmoviestaskTheme
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val apiKey = BuildConfig.API_KEY
-    private val accessToken = BuildConfig.BEARER_TOKEN
-    private val api by lazy {
-        val json = Json { ignoreUnknownKeys = true }
-        val client = OkHttpClient.Builder()
-            .addInterceptor(AuthInterceptor(apiKey, accessToken))
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .build()
-        val retrofit = Retrofit.Builder()
-            .client(client)
-            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
-            .baseUrl("https://api.themoviedb.org/3/")
-            .build()
-        retrofit.create(TmdbApi::class.java)
-    }
+    @Inject
+    lateinit var api: TmdbApi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
