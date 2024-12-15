@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.shreyash.androidmoviestask.data.models.CastMember
 import dev.shreyash.androidmoviestask.data.models.MovieDetailsResponse
+import dev.shreyash.androidmoviestask.data.models.Trailer
 import dev.shreyash.androidmoviestask.domain.MoviesRepository
 import dev.shreyash.androidmoviestask.domain.Res
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,9 +36,14 @@ class MovieDetailsViewModel @Inject constructor(
     private val _castDetails = MutableStateFlow<Res<List<CastMember>>>(Res.Loading())
     val castDetails: StateFlow<Res<List<CastMember>>> = _castDetails
 
+
+    private val _trailers = MutableStateFlow<Res<List<Trailer>>>(Res.Loading())
+    val trailers: StateFlow<Res<List<Trailer>>> = _trailers
+
     init {
         fetchMovieDetails()
         fetchCastDetails()
+        fetchTrailers()
     }
 
 
@@ -60,6 +66,18 @@ class MovieDetailsViewModel @Inject constructor(
                     Res.Success(repository.getCastDetails(movieId).cast)
                 } catch (e: Exception) {
                     println("EEEEE $e")
+                    Res.Error(e)
+                }
+            }
+        }
+    }
+
+    fun fetchTrailers() {
+        viewModelScope.launch {
+            _trailers.update {
+                try {
+                    Res.Success(repository.getMovieTrailers(movieId).results)
+                } catch (e: Exception) {
                     Res.Error(e)
                 }
             }

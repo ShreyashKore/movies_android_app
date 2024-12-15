@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import dev.shreyash.androidmoviestask.ui.home.HomeScreen
 import dev.shreyash.androidmoviestask.ui.moviedetails.MovieDetailsScreen
 import dev.shreyash.androidmoviestask.ui.moviedetails.MovieDetailsViewModel
+import dev.shreyash.androidmoviestask.ui.videoplayer.VideoPlayer
 
 
 @Composable
@@ -30,11 +31,17 @@ fun AppNavigation() {
             MovieDetailsScreen(
                 hiltViewModel<MovieDetailsViewModel>(),
                 onTrailerClick = {
-
+                    navController.navigate("videoPlayer/$it")
                 },
                 onBack = {
                     navController.popBackStack()
                 }
+            )
+        }
+
+        composable("videoPlayer/{videoUrl}") {
+            VideoPlayer(
+                videoKey = it.arguments?.getString("videoUrl") ?: ""
             )
         }
     }

@@ -1,6 +1,7 @@
 package dev.shreyash.androidmoviestask.ui.moviedetails
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -53,6 +54,7 @@ import coil3.compose.AsyncImage
 import dev.shreyash.androidmoviestask.R
 import dev.shreyash.androidmoviestask.data.models.CastMember
 import dev.shreyash.androidmoviestask.data.models.MovieDetailsResponse
+import dev.shreyash.androidmoviestask.data.models.Trailer
 import dev.shreyash.androidmoviestask.domain.Res
 import dev.shreyash.androidmoviestask.ui.components.ErrorMessageWithRetry
 
@@ -69,9 +71,11 @@ fun MovieDetailsScreen(
 ) {
     val movieDetails by movieDetailsViewModel.movieDetails.collectAsState()
     val cast by movieDetailsViewModel.castDetails.collectAsState()
+    val trailers by movieDetailsViewModel.trailers.collectAsState()
     MovieDetailsScreen(
         movieDetailsState = movieDetails,
         castState = cast,
+        trailersState = trailers,
         onTrailerClick = onTrailerClick,
         onRetry = movieDetailsViewModel::fetchMovieDetails,
         onRetryCast = movieDetailsViewModel::fetchCastDetails,
@@ -84,6 +88,7 @@ fun MovieDetailsScreen(
 fun MovieDetailsScreen(
     movieDetailsState: Res<MovieDetailsResponse>,
     castState: Res<List<CastMember>>,
+    trailersState: Res<List<Trailer>>,
     onTrailerClick: (String) -> Unit,
     onRetry: () -> Unit,
     onRetryCast: () -> Unit,
@@ -143,7 +148,16 @@ fun MovieDetailsScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(300.dp)
-                            .padding(bottom = 60.dp),
+                            .padding(bottom = 60.dp)
+                            .clickable {
+                                val trailers = (trailersState as? Res.Success)?.data ?: return@clickable
+                                val trailer = trailers.first {
+                                    it.site.equals("youtube", true)
+                                }
+                                // currently only youtube videos are supported
+                                // TODO: remove this logic once all kinds of videos are supported
+                                onTrailerClick(trailer.key)
+                            },
                         contentScale = ContentScale.Crop,
                     )
                     Row(

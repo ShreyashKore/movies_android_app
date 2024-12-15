@@ -4,6 +4,7 @@ import dev.shreyash.androidmoviestask.data.TmdbApi
 import dev.shreyash.androidmoviestask.data.models.CastMember
 import dev.shreyash.androidmoviestask.data.models.MovieDetailsResponse
 import dev.shreyash.androidmoviestask.data.models.MoviesResponse
+import dev.shreyash.androidmoviestask.data.models.TrailersResponse
 import kotlinx.serialization.Serializable
 
 /**
@@ -53,7 +54,7 @@ class MoviesRepository(private val api: TmdbApi) {
         return api.getCastDetails(movieId)
     }
 
-    suspend fun getMovieTrailers(movieId: Int): Any {
+    suspend fun getMovieTrailers(movieId: Int): TrailersResponse {
         return api.getMovieTrailers(movieId)
     }
 }

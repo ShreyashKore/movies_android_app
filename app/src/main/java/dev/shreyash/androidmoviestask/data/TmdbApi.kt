@@ -2,6 +2,7 @@ package dev.shreyash.androidmoviestask.data
 
 import dev.shreyash.androidmoviestask.data.models.MovieDetailsResponse
 import dev.shreyash.androidmoviestask.data.models.MoviesResponse
+import dev.shreyash.androidmoviestask.data.models.TrailersResponse
 import dev.shreyash.androidmoviestask.domain.CastResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -63,5 +64,5 @@ interface TmdbApi {
     @GET("movie/{movie_id}/videos")
     suspend fun getMovieTrailers(
         @Path("movie_id") movieId: Int,
-    ): Any
+    ): TrailersResponse
 }
