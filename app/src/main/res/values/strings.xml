@@ -6,4 +6,9 @@
     <string name="upcoming">Upcoming</string>
     <string name="now_playing">Now Playing</string>
     <string name="what_do_you_want_to_watch">What do you want to watch?</string>
+    <string name="about_movie">About Movie</string>
+    <string name="cast">Cast</string>
+    <string name="minutes">Minutes</string>
+    <string name="details">Details</string>
+    <string name="error_occurred">Error Occurred!</string>
 </resources>

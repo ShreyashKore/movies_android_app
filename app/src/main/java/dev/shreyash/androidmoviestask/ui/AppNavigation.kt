@@ -6,6 +6,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dev.shreyash.androidmoviestask.ui.home.HomeScreen
+import dev.shreyash.androidmoviestask.ui.moviedetails.MovieDetailsScreen
+import dev.shreyash.androidmoviestask.ui.moviedetails.MovieDetailsViewModel
 
 
 @Composable
@@ -18,8 +20,20 @@ fun AppNavigation() {
         composable("home") {
             HomeScreen(
                 viewModel = hiltViewModel(),
-                onMovieClick = {
-                    // Handle movie click
+                onMovieClick = { id ->
+                    navController.navigate("movieDetails/$id")
+                }
+            )
+        }
+
+        composable("movieDetails/{movieId}") {
+            MovieDetailsScreen(
+                hiltViewModel<MovieDetailsViewModel>(),
+                onTrailerClick = {
+
+                },
+                onBack = {
+                    navController.popBackStack()
                 }
             )
         }

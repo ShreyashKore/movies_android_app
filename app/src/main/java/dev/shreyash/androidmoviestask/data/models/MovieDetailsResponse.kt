@@ -7,8 +7,8 @@ import kotlinx.serialization.Serializable
 data class MovieDetailsResponse(
     val id: Int,
     val title: String,
-    val overview: String?,
-    @SerialName("release_date") val releaseDate: String?,
+    val overview: String,
+    @SerialName("release_date") val releaseDate: String,
     val runtime: Int?,
     val genres: List<Genre>,
     @SerialName("vote_average") val voteAverage: Double,

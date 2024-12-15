@@ -1,8 +1,10 @@
 package dev.shreyash.androidmoviestask.domain
 
 import dev.shreyash.androidmoviestask.data.TmdbApi
+import dev.shreyash.androidmoviestask.data.models.CastMember
 import dev.shreyash.androidmoviestask.data.models.MovieDetailsResponse
 import dev.shreyash.androidmoviestask.data.models.MoviesResponse
+import kotlinx.serialization.Serializable
 
 /**
  * Repository class for handling all the movie related operations.
@@ -47,7 +49,7 @@ class MoviesRepository(private val api: TmdbApi) {
         return api.getMovieDetails(movieId, language)
     }
 
-    suspend fun getCastDetails(movieId: Int): Any {
+    suspend fun getCastDetails(movieId: Int): CastResponse {
         return api.getCastDetails(movieId)
     }
 
@@ -55,3 +57,8 @@ class MoviesRepository(private val api: TmdbApi) {
         return api.getMovieTrailers(movieId)
     }
 }
+
+@Serializable
+data class CastResponse(
+    val cast: List<CastMember>
+)
