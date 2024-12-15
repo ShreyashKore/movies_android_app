@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">androidmoviestask</string>
+    <string name="trending">Trending</string>
+    <string name="popular">Popular</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="what_do_you_want_to_watch">What do you want to watch?</string>
 </resources>
